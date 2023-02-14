@@ -26,10 +26,22 @@ router.post("/create", async (req, res, next) => {
       plot,
       cast,
     });
-    res.redirect("/");
+    res.redirect("/movies");
   } catch (error) {
     next(error);
   }
 });
+
+// GET "/movies/movies"
+router.get("/", async (req, res, next) => {
+  try {
+    const response = await Movie.find().select({title: 1})
+    res.render("movies/movies.hbs",{
+      allTitleMovie: response
+    })
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router;
