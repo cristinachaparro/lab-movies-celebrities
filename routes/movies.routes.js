@@ -49,8 +49,7 @@ router.get("/:id", async (req, res, next) => {
   // console.log(req.params.id)
 
   try {
-
-    const response = await Movie.findById(id).populate("cast")
+    const response = await Movie.findById(id).populate("cast");
     // console.log(response.cast)
     // const allNamesCelebritiesDetail = await Celebrity.findById(response.cast)
     // console.log(allNamesCelebritiesDetail)
@@ -58,6 +57,15 @@ router.get("/:id", async (req, res, next) => {
     res.render("movies/movie-details.hbs", {
       detailMovie: response,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/:id/delete", async (req, res, next) => {
+  try {
+    await Movie.findByIdAndDelete(req.params.id);
+    res.redirect("/movies");
   } catch (error) {
     next(error);
   }
