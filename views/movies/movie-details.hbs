@@ -12,8 +12,11 @@
   {{/each}}
 
 <form action="/movies/{{detailMovie._id}}/delete" method="post">
-<a href="/movies/{{detailMovie._id}}/delete"><button>Borrar</button></a>
-  
+  <a href="/movies/{{detailMovie._id}}/delete"><button>Borrar</button></a> 
+</form>
+
+<form action="/movies/{{detailMovie._id}}/edit">
+  <a href="/movies/{{detailMovie._id}}/edit"><button>Editar</button></a> 
 </form>
 
 </div>

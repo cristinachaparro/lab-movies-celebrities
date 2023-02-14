@@ -71,4 +71,33 @@ router.post("/:id/delete", async (req, res, next) => {
   }
 });
 
+// GET "/movies/:id/edit"
+router.get("/:id/edit", async (req, res, next)=>{
+  try {
+    const response = await Movie.findById(req.params.id)
+    const response2 = await Celebrity.find().select({name: 1})
+    res.render("movies/edit-movie.hbs", {
+      movieToEdit: response,
+      allCelebrities: response2
+    })
+  } catch (error) {
+    next(error)    
+  }
+})
+
+// POST "/movies/:id/edit"
+router.post("/:id/edit", async(req, res, next)=>{
+  try {
+    await Movie.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      genre: req.body.genre,
+      plot: req.body.plot,
+      cast: req.body.cast
+    })
+    res.redirect("/movies")
+  } catch (error) {
+    
+  }
+})
+
 module.exports = router;
